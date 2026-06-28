@@ -1,0 +1,5 @@
+ID,product_ID,system,ticketNumber,description,priority,validUntil
+c1b2c3d4-0001-0000-0000-000000000001,a1b2c3d4-0001-0000-0000-000000000001,JIRA,ISE-1234,Beschreibung der App im Detail implementieren,HIGH,2025-12-31
+c1b2c3d4-0002-0000-0000-000000000002,a1b2c3d4-0001-0000-0000-000000000001,JIRA,ISE-1235,UI-Komponenten für Hauptansicht entwickeln,MEDIUM,2025-11-30
+c1b2c3d4-0003-0000-0000-000000000003,a1b2c3d4-0002-0000-0000-000000000002,URGENT_CHANGE,UC-0042,Kritischen Datenbankfehler auf Produktivsystem beheben,VERY_HIGH,2025-10-15
+c1b2c3d4-0004-0000-0000-000000000004,a1b2c3d4-0002-0000-0000-000000000002,PROBLEM,P-0099,Sporadische Timeouts in der Schnittstelle analysieren,HIGH,2025-12-01

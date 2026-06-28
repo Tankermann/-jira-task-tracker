@@ -1,0 +1,30 @@
+{
+  "name": "jira-task-tracker",
+  "version": "0.1.0",
+  "description": "Jira Task Tracker — SAPUI5 + SAP CAP + SQLite",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "dev": "cds watch"
+  },
+  "dependencies": {
+    "@sap/cds": "^8",
+    "@cap-js/sqlite": "^1",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^8"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "db/tracker.db"
+        }
+      }
+    }
+  }
+}
