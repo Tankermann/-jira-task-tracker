@@ -1,12 +1,12 @@
 # CLAUDE.md – jira-task-tracker
 
-wiki_entry: KanpekiVault/wiki/projects/jira-task-tracker/
+@.claude/workspace.md
 
 ---
 
 ## Projektzweck
 
-Persönliches Tool zum Tracken von Jira-Arbeiten mit Kontext. Jira-Ticketnummern (z. B. "ISE-1234") werden beim Erfassen mit Beschreibungstext, Zeitangabe und Freitext angereichert — sodass am Wochenende ein lesbarer Wochenbericht entsteht, ohne jede Nummer in Jira nachzuschlagen.
+Tool zum Tracken von Jira-Arbeiten mit Kontext. Ticketnummern (z. B. "ISE-1234") werden beim Erfassen mit Beschreibungstext, Zeitangabe und Freitext angereichert — sodass am Wochenende ein lesbarer Wochenbericht entsteht, ohne jede Nummer nachzuschlagen.
 
 ---
 
@@ -14,14 +14,15 @@ Persönliches Tool zum Tracken von Jira-Arbeiten mit Kontext. Jira-Ticketnummern
 
 ```
 jira-task-tracker/
-├── CLAUDE.md           ← Diese Datei
+├── CLAUDE.md
 ├── package.json
 ├── db/
-│   └── schema.cds      ← CDS-Datenmodell (Products, IseNumbers, WorkEntries)
+│   ├── schema.cds          ← CDS-Datenmodell
+│   └── data/               ← Sample-Daten (CSV)
 ├── srv/
-│   ├── service.cds     ← OData-Service-Definition
-│   └── service.js      ← Service-Handler (calendarWeek auto-befüllen)
-└── app/                ← SAPUI5-Frontend (noch leer)
+│   ├── service.cds         ← OData-Service /tracker
+│   └── service.js          ← Handler (calendarWeek, ticketDescription, bookingNumber)
+└── app/                    ← SAPUI5-Frontend
 ```
 
 ---
@@ -31,25 +32,17 @@ jira-task-tracker/
 - **Backend:** SAP CAP (Node.js), `@sap/cds` ^8
 - **Datenbank:** SQLite lokal (`@cap-js/sqlite`), Datei: `db/tracker.db`
 - **Frontend:** SAPUI5 (in `app/`)
-- **Start:** `npm run dev` → `cds watch`
 
 ## Datenmodell (Überblick)
 
 | Entität | Typ | Beschreibung |
 |---------|-----|-------------|
 | `Products` | Stammdaten | Produkt mit Kürzel + Beschreibung |
-| `IseNumbers` | Stammdaten | ISE-Tickets, Kind von Products (1:n) |
+| `Tickets` | Stammdaten | Tickets (JIRA / Urgent Change / Problem), Kind von Products |
+| `BookingNumbers` | Stammdaten | Buchungsnummern pro Produkt, kategorisiert nach Area × Type |
 | `WorkEntries` | Tracking | Erbrachte Arbeit pro Tag/Task |
 
 Vollständiges Modell: `db/schema.cds`
-
----
-
-## Zugriffsregeln
-
-**Bei Dokumentationsaufgaben:** Nur lesen. Doku nach `KanpekiVault/wiki/projects/jira-task-tracker/`.
-
-**Bei Code-Aufgaben:** Voller Lese- und Schreibzugriff auf alle Dateien.
 
 ---
 
@@ -60,9 +53,4 @@ Vollständiges Modell: `db/schema.cds`
 OData-Endpoint: `http://localhost:4004/tracker`
 
 ### DB-RESET
-`cds deploy --to sqlite` — Schema neu deployen (löscht vorhandene Daten).
-
-### DOKU-UPDATE
-**Aufruf:** `/doku-update jira-task-tracker`
-1. `db/schema.cds` und `srv/` lesen
-2. Wiki-Seiten in `KanpekiVault/wiki/projects/jira-task-tracker/` aktualisieren
+`cds deploy --to sqlite:db/tracker.db` — Schema neu deployen (löscht vorhandene Daten).
