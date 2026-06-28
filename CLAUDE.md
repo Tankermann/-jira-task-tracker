@@ -1,7 +1,5 @@
 # CLAUDE.md – jira-task-tracker
 
-@.claude/workspace.md
-
 ---
 
 ## Projektzweck
